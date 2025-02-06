@@ -36,3 +36,13 @@ func NewTx(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(resp)
 }
+
+func WriteBlock(w http.ResponseWriter, r *http.Request){
+
+	var checkoutTx models.TransactionCheckout
+	if err := json.NewDecoder(r.Body).Decode(&checkoutTx); err != nil {
+		w.WriteHeader((http.StatusInternalServerError))
+		log.Printf("Could not create the transaction checkout : %v", err)
+		w.Write([]byte("Could not Create a new Transaction Checkout"))
+	}
+}
